@@ -17,6 +17,15 @@ extension String {
     return date
   }
   
+  func modelToDate() -> Date? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.locale = .current
+    dateFormatter.timeStyle = .short
+    dateFormatter.dateStyle = .short
+    let date = dateFormatter.date(from: self)
+    return date
+  }
+  
 }
 
 extension Date {

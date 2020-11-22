@@ -60,7 +60,7 @@ extension LaunchDetailTableView {
     tableView.backgroundColor = .clear
     tableView.isPagingEnabled = true
     tableView.showsVerticalScrollIndicator = false
-//    tableView.allowsSelection = false
+    tableView.tableFooterView = UIView()
     tableView.rowHeight = UITableView.automaticDimension
     tableView.rx.setDelegate(self).disposed(by: bags)
     tableView.register(UINib(nibName: cellName, bundle: nil), forCellReuseIdentifier: cellName)
@@ -79,12 +79,11 @@ extension LaunchDetailTableView {
   
   private func setupRxDataSource() {
     guard let launchDetailTableView = launchDetailTableView else { return }
-//    print("setupRx")
+
     let subject = PublishSubject<[LaunchDetailSection]>()
     let dataSource = RxTableViewSectionedReloadDataSource<LaunchDetailSection>(
       configureCell: { _, tableView, _, item in
         
-//      print("setupRx dataSource set cell")
         if item.label == "Infographic" {
           return self.buildInfographicCell(with: item, from: tableView)
         } else {
@@ -130,7 +129,6 @@ extension LaunchDetailTableView {
   func displayDetailLaunch(_ launchDescDetails: [LaunchDetail], _ launchInfographicDetails: [LaunchDetail]) {
     
     guard !isLoading, let launchesSubject = launchDetailSubject else { return }
-//    print("PreviousLaunchView displayUpcomingGoLaunches")
     isLoading = true
     self.launchDescDetails = launchDescDetails
     self.launchInfographicDetails = launchInfographicDetails
@@ -138,6 +136,7 @@ extension LaunchDetailTableView {
     isLoading = false
     
   }
+  
 }
 
 extension LaunchDetailTableView: UITableViewDelegate {

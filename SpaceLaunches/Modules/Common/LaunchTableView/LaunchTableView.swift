@@ -19,7 +19,7 @@ protocol LaunchTableViewProtocol: class {
 
 class LaunchTableView: UIView {
 
-  private var launchesTableView: UITableView?
+  private weak var launchesTableView: UITableView?
   private let cellName = "LaunchTableViewCell"
   private var launches: [LaunchModel] = []
   private var launchSections: [LaunchSection] = []
@@ -35,7 +35,6 @@ class LaunchTableView: UIView {
     
     let sections = [LaunchSection(header: header, items: launches)]
     self.launchSections = sections
-//    print("PreviousLaunchView loadLaunchSection \(sections[0].items)")
     return sections
   }
   
@@ -50,9 +49,9 @@ extension LaunchTableView {
   
   private func setupTableView() {
     
-    let tableView = UITableView(frame: .zero)
+    let tableView = UITableView(frame: .zero, style: .grouped)
     tableView.backgroundColor = .clear
-    tableView.isPagingEnabled = true
+    tableView.tableFooterView = UIView()
     tableView.showsVerticalScrollIndicator = false
     tableView.rx.setDelegate(self).disposed(by: bags)
     tableView.register(UINib(nibName: cellName, bundle: nil), forCellReuseIdentifier: cellName)
@@ -70,12 +69,10 @@ extension LaunchTableView {
   
   private func setupRxDataSource() {
     guard let launchesTableView = launchesTableView else { return }
-//    print("setupRx")
     let subject = PublishSubject<[LaunchSection]>()
     let dataSource = RxTableViewSectionedReloadDataSource<LaunchSection>(
       configureCell: { _, tableView, indexPath, item in
         
-//      print("setupRx dataSource set cell")
         guard let cell = tableView
                 .dequeueReusableCell(withIdentifier: self.cellName, for: indexPath) as? LaunchTableViewCell
           else { return UITableViewCell() }
@@ -96,18 +93,33 @@ extension LaunchTableView {
   func displayPreviousLaunches(_ launches: [LaunchModel]) {
     
     guard !isLoading, let launchesSubject = launchesSubject else { return }
-//    print("PreviousLaunchView displayUpcomingGoLaunches")
     isLoading = true
     self.launches = launches
     launchesSubject.onNext(loadLaunchSection())
     isLoading = false
     
   }
+  
+  func setTableViewScroll(_ isEnabled: Bool) {
+    self.launchesTableView?.isScrollEnabled = isEnabled
+  }
+  
+  func setTableViewHeight() -> CGFloat {
+    guard let launchesTableView = launchesTableView else { return 0 }
+    print("setTableViewHeight \(launchesTableView.contentSize.height)")
+    launchesTableView.frame = CGRect(
+      x: launchesTableView.frame.origin.x,
+      y: launchesTableView.frame.origin.y,
+      width: launchesTableView.frame.size.width,
+      height: launchesTableView.contentSize.height)
+    return launchesTableView.contentSize.height
+  }
 }
 
 extension LaunchTableView: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
     guard let launchesDataSource = launchesDataSource else {
       return
     }

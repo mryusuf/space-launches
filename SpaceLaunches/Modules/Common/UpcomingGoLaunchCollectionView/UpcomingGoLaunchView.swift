@@ -19,7 +19,7 @@ protocol UpcomingGoLaunchViewProtocol: class {
 
 class UpcomingGoLaunchView: UIView {
 
-  private var launchesCollectionView: UICollectionView?
+  private weak var launchesCollectionView: UICollectionView?
   private let cellName = "UpcomingGoCollectionCell"
   private var launches: [LaunchModel] = []
   private var launchSections: [LaunchSection] = []
@@ -35,7 +35,6 @@ class UpcomingGoLaunchView: UIView {
     
     let sections = [LaunchSection(header: header, items: launches)]
     self.launchSections = sections
-//    print("UpcomingGoLaunchView loadLaunchSection \(sections[0].items)")
     return sections
   }
   
@@ -56,7 +55,6 @@ extension UpcomingGoLaunchView {
     collectionView.backgroundColor = .clear
     collectionView.isPagingEnabled = true
     collectionView.rx.setDelegate(self).disposed(by: bags)
-//    collectionView.register(UpcomingGoCollectionViewCell.self, forCellWithReuseIdentifier: cellName)
     collectionView.register(UINib(nibName: "UpcomingGoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellName)
     addSubview(collectionView)
     
@@ -72,13 +70,10 @@ extension UpcomingGoLaunchView {
   
   private func setupRxDataSource() {
     guard let launchesCollectionView = launchesCollectionView else { return }
-//    print("setupRx")
-//    launchesCollectionView.rx.setDelegate(self).disposed(by: bags)
     let subject = PublishSubject<[LaunchSection]>()
     let dataSource = RxCollectionViewSectionedReloadDataSource<LaunchSection>(
       configureCell: { _, collectionView, indexPath, item in
         
-//      print("setupRx dataSource set cell")
         guard let cell = collectionView
                 .dequeueReusableCell(withReuseIdentifier: self.cellName, for: indexPath) as? UpcomingGoLaunchCollectionViewCell
           else { return UICollectionViewCell() }
@@ -91,7 +86,7 @@ extension UpcomingGoLaunchView {
     subject
       .bind(to: launchesCollectionView.rx.items(dataSource: dataSource))
       .disposed(by: bags)
-//    launchesCollectionView.rx.delegate.setForwardToDelegate(self, retainDelegate: false)
+    
     self.launchesSubject = subject
     self.launchesDataSource = dataSource
     
@@ -146,6 +141,6 @@ extension UpcomingGoLaunchView: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView,
                       layout collectionViewLayout: UICollectionViewLayout,
                       insetForSectionAt section: Int) -> UIEdgeInsets {
-    return UIEdgeInsets.init(top: 8, left: 8, bottom: 8, right: 8)
+    return UIEdgeInsets.init(top: 8, left: 20, bottom: 8, right: 8)
   }
 }

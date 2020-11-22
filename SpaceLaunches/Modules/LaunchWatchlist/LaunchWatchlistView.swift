@@ -14,6 +14,7 @@ protocol LaunchWatchlistViewProtocol: class {
   func stopLoading()
   func displayLaunches(_ launches: [LaunchModel])
   func showEmptyState()
+  func hideEmptyState()
   
 }
 
@@ -23,6 +24,7 @@ class LaunchWatchlistView: UIViewController {
   private weak var containerView: UIView?
   private weak var launchTableView: LaunchTableView?
   private weak var activityIndicator: UIActivityIndicatorView?
+  private weak var emptyLabel: UILabel?
   internal var isLoading = false
   
   init() {
@@ -47,19 +49,14 @@ class LaunchWatchlistView: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
     
-    print("LaunchWatchlistView viewWillAppear")
+    self.navigationController?.navigationBar.prefersLargeTitles = true
+    self.navigationItem.largeTitleDisplayMode = .always
     self.presenter?.loadLaunches()
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .systemBackground
-    self.navigationController?.navigationBar.prefersLargeTitles = true
-//    self.navigationController?.navigationBar. = true
-//    self.navigationItem.largeTitleDisplayMode = .never
-    
-//    self.navigationController?.hidesBarsOnSwipe = true
-    self.navigationItem.largeTitleDisplayMode = .always
     
   }
   
@@ -119,6 +116,7 @@ extension LaunchWatchlistView: LaunchWatchlistViewProtocol {
   func displayLaunches(_ launches: [LaunchModel]) {
     
     self.launchTableView?.displayPreviousLaunches(launches)
+    
   }
   
   func showEmptyState() {
@@ -134,6 +132,14 @@ extension LaunchWatchlistView: LaunchWatchlistViewProtocol {
       make.center.equalToSuperview()
     }
     
+    self.emptyLabel = emptyLabel
+    
+  }
+  
+  func hideEmptyState() {
+    if let emptyLabel = emptyLabel {
+      emptyLabel.isHidden = true
+    }
   }
   
 }

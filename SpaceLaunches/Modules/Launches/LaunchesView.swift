@@ -51,28 +51,31 @@ class LaunchesView: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
+    self.navigationController?.navigationBar.prefersLargeTitles = true
+    self.navigationItem.largeTitleDisplayMode = .automatic
     self.presenter?.loadLaunches()
+    
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .systemBackground
-    self.navigationController?.navigationBar.prefersLargeTitles = true
-//    self.navigationController?.navigationBar. = true
-//    self.navigationItem.largeTitleDisplayMode = .never
-    
-//    self.navigationController?.hidesBarsOnSwipe = true
-    self.navigationItem.largeTitleDisplayMode = .automatic
-    
+    DispatchQueue.main.async {
+      if let previousLabel = self.previousLabel,
+         let containerView = self.containerView {
+        
+        let height = self.previousLaunchesTableView?.setTableViewHeight() ?? 0
+        self.previousLaunchesTableView?.snp.makeConstraints { make in
+          make.left.equalTo(self.view)
+          make.right.equalTo(self.view)
+          make.top.equalTo(previousLabel.safeAreaLayoutGuide.snp.bottomMargin).offset(20)
+          make.height.greaterThanOrEqualTo(height)
+          make.bottom.equalTo(containerView.snp.bottom).offset(0)
+        }
+      }
+    }
   }
   
-//  override func viewDidLayoutSubviews() {
-//    super.viewDidLayoutSubviews()
-//    guard let scrollView = scrollView else { return }
-//    print("viewDidLayoutSubviews \(scrollView.bounds.height)")
-//    scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: scrollView.bounds.height)
-//
-//  }
 }
 
 extension LaunchesView {
@@ -94,11 +97,9 @@ extension LaunchesView {
     
     let scrollView = UIScrollView()
     scrollView.showsVerticalScrollIndicator = false
-//    scrollView.direction
     self.view.addSubview(scrollView)
     scrollView.snp.makeConstraints { make in
       make.edges.equalTo(self.view)
-//      make.height.equalTo(2000)
     }
     
     let cv = UIView()
@@ -107,7 +108,6 @@ extension LaunchesView {
     cv.snp.makeConstraints { make in
       make.top.bottom.equalTo(scrollView)
       make.left.right.equalTo(self.view)
-//      make.width.height.equalTo(scrollView)
       make.bottom.equalTo(scrollView.snp.bottom)
     }
     
@@ -179,20 +179,12 @@ extension LaunchesView {
     
     setupPreviousLaunchesLabel()
     
-    guard let containerView = containerView, let previousLabel = previousLabel else { return }
+    guard let containerView = containerView else { return }
     
     let previousLaunchesView = LaunchTableView()
     previousLaunchesView.setup()
     previousLaunchesView.delegate = self
     containerView.addSubview(previousLaunchesView)
-    
-    previousLaunchesView.snp.makeConstraints { make in
-      make.left.equalTo(self.view)
-      make.right.equalTo(self.view)
-      make.top.equalTo(previousLabel.safeAreaLayoutGuide.snp.bottomMargin).offset(20)
-      make.height.equalTo(self.view.bounds.height)
-      make.bottom.equalTo(containerView.snp.bottom).offset(0)
-    }
     
     self.previousLaunchesTableView = previousLaunchesView
     
@@ -202,14 +194,18 @@ extension LaunchesView {
 extension LaunchesView: UIScrollViewDelegate {
   
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    if scrollView.contentOffset.y <= 0 {
-      print("no scroll")
-      self.navigationController?.navigationBar.prefersLargeTitles = true
-      self.navigationItem.largeTitleDisplayMode = .always
+    let yOffset = scrollView.contentOffset.y
+    
+    if scrollView == self.scrollView {
+      if yOffset >= scrollView.bounds.height - view.bounds.height {
+        scrollView.isScrollEnabled = false
+        previousLaunchesTableView?.setTableViewScroll(true)
+      }
     } else {
-      print("yes scroll")
-      self.navigationController?.navigationBar.prefersLargeTitles = false
-      self.navigationItem.largeTitleDisplayMode = .never
+      if yOffset <= 0 {
+        self.scrollView?.isScrollEnabled = true
+        previousLaunchesTableView?.setTableViewScroll(false)
+      }
     }
   }
 }
@@ -241,7 +237,7 @@ extension LaunchesView: LaunchesViewProtocol {
   func displayPreviousLaunches(_ launches: [LaunchModel]) {
     
     self.previousLaunchesTableView?.displayPreviousLaunches(launches)
-    
+  
   }
   
 }
