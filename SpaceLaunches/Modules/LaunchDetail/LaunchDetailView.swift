@@ -9,12 +9,14 @@ import UIKit
 import RxSwift
 import SDWebImage
 import SnapKit
+import Lightbox
 
 protocol LaunchDetailViewProtocol: class {
   
   var presenter: LaunchDetailPresenterProtocol? { get set }
   func displayLaunch(name: String, image: String, desc: [LaunchDetail], infographic: [LaunchDetail])
   func updateToggleWatchlist(isInWatchlist: Bool)
+  func onImageViewTapped()
   
 }
 
@@ -45,6 +47,15 @@ class LaunchDetailView: UIViewController {
     navigationController?.hidesBarsOnSwipe = false
     
     self.presenter?.loadDetailLaunch()
+    setupToggleWatchlistButton()
+    
+  }
+  
+}
+
+extension LaunchDetailView {
+  
+  func setupToggleWatchlistButton() {
     
     let isInWatchlist = self.presenter?.checkIfInWatchlist() ?? false
     
@@ -60,23 +71,25 @@ class LaunchDetailView: UIViewController {
     
   }
   
-}
-
-extension LaunchDetailView {
-  
   @objc func toggleWatchlist() {
     self.presenter?.toggleWatchlist()
   }
+  
 }
 
 extension LaunchDetailView: LaunchDetailViewProtocol {
   
   func displayLaunch(name: String, image: String, desc: [LaunchDetail], infographic: [LaunchDetail]) {
-//    self.title = launch.name
     
+    guard let presenter = presenter else { return  }
     let launchImageView = UIImageView()
     launchImageView.sd_imageIndicator = SDWebImageActivityIndicator.medium
-    launchImageView.sd_setImage(with: URL(string: image))
+    launchImageView.sd_setImage(with: URL(string: image)) { _, _, _, _ in
+      launchImageView.isUserInteractionEnabled = true
+      launchImageView.addGestureRecognizer(
+        UITapGestureRecognizer(target: self, action: #selector(self.onImageViewTapped))
+      )
+    }
     
     self.view.addSubview(launchImageView)
     launchImageView.snp.makeConstraints { make in
@@ -88,7 +101,7 @@ extension LaunchDetailView: LaunchDetailViewProtocol {
     self.launchImageView = launchImageView
     
     let launchDetailTableView = LaunchDetailTableView()
-    launchDetailTableView.setup()
+    launchDetailTableView.setup(presenter: presenter)
     launchDetailTableView.displayDetailLaunch(desc, infographic)
     self.view.addSubview(launchDetailTableView)
     
@@ -105,6 +118,26 @@ extension LaunchDetailView: LaunchDetailViewProtocol {
     self.addToWatchlistButton?.setImage(
       UIImage(systemName: isInWatchlist ? "binoculars.fill" : "binoculars"),
       for: .normal)
+  }
+  
+  @objc func onImageViewTapped() {
+    guard let presenter = presenter,
+          let image: UIImage = self.launchImageView?.image
+    else { return }
+    print("imageViewTapped")
+    presenter.showInfographicImage(for: image)
+  }
+  
+}
+
+extension LaunchDetailView: LightboxControllerPageDelegate, LightboxControllerDismissalDelegate {
+  
+  func lightboxController(_ controller: LightboxController, didMoveToPage page: Int) {
+    
+  }
+  
+  func lightboxControllerWillDismiss(_ controller: LightboxController) {
+    
   }
   
 }

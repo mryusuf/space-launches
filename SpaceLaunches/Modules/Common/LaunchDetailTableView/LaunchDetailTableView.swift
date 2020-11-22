@@ -23,6 +23,7 @@ class LaunchDetailTableView: UIView {
   private var launchDetailSubject: PublishSubject<[LaunchDetailSection]>?
   private var isLoading = false
   private var bags = DisposeBag()
+  private weak var presenter: LaunchDetailPresenterProtocol?
 
   private func loadLaunchSection() -> [LaunchDetailSection] {
     
@@ -47,7 +48,8 @@ class LaunchDetailTableView: UIView {
 
 extension LaunchDetailTableView {
   
-  func setup() {
+  func setup(presenter: LaunchDetailPresenterProtocol) {
+    self.presenter = presenter
     setupTableView()
     setupRxDataSource()
   }
@@ -58,7 +60,7 @@ extension LaunchDetailTableView {
     tableView.backgroundColor = .clear
     tableView.isPagingEnabled = true
     tableView.showsVerticalScrollIndicator = false
-    tableView.allowsSelection = false
+//    tableView.allowsSelection = false
     tableView.rowHeight = UITableView.automaticDimension
     tableView.rx.setDelegate(self).disposed(by: bags)
     tableView.register(UINib(nibName: cellName, bundle: nil), forCellReuseIdentifier: cellName)
@@ -117,9 +119,10 @@ extension LaunchDetailTableView {
   private func buildInfographicCell(with launchDetail: LaunchDetail, from tableView: UITableView) -> UITableViewCell {
     
     guard let cell = tableView
-            .dequeueReusableCell(withIdentifier: self.infographicCellName) as? LaunchDetailInfographicTableViewCell
+            .dequeueReusableCell(withIdentifier: self.infographicCellName) as? LaunchDetailInfographicTableViewCell,
+          let presenter = presenter
       else { return UITableViewCell() }
-     cell.set(launchDetail)
+     cell.set(launchDetail, presenter: presenter)
     return cell
     
   }
@@ -139,7 +142,4 @@ extension LaunchDetailTableView {
 
 extension LaunchDetailTableView: UITableViewDelegate {
   
-//  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//    return UITableView.automaticDimension
-//  }
 }

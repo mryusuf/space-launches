@@ -11,7 +11,7 @@ import SDWebImage
 class LaunchDetailInfographicTableViewCell: UITableViewCell {
 
   @IBOutlet weak var infographicImageView: UIImageView!
-  
+  weak var presenter: LaunchDetailPresenterProtocol?
   override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,10 +23,18 @@ class LaunchDetailInfographicTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
   
-  func set(_ launchDetail: LaunchDetail) {
-    print("set LaunchDetail Infographic")
+  func set(_ launchDetail: LaunchDetail, presenter: LaunchDetailPresenterProtocol) {
+    self.presenter = presenter
     infographicImageView.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
-    infographicImageView.sd_setImage(with: URL(string: launchDetail.detail))
+    infographicImageView.sd_setImage(with: URL(string: launchDetail.detail)) {_, _, _, _ in 
+      self.infographicImageView.isUserInteractionEnabled = true
+      self.infographicImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onInfographicTapped)))
+    }
+  }
+  
+  @objc func onInfographicTapped() {
+    guard let presenter = presenter, let image = infographicImageView.image else { return }
+    presenter.showInfographicImage(for: image)
   }
     
 }

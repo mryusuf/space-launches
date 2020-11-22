@@ -12,10 +12,11 @@ protocol LaunchDetailPresenterProtocol: class {
   
   var interactor: LaunchDetailUseCase? { get set }
   var view: LaunchDetailViewProtocol? { get set }
-  var router: LaunchDetailRouter? { get set }
+  var router: LaunchDetailRouterProtocol? { get set }
   func loadDetailLaunch()
   func checkIfInWatchlist() -> Bool
   func toggleWatchlist()
+  func showInfographicImage(for image: UIImage)
   
 }
 
@@ -23,7 +24,7 @@ class LaunchDetailPresenter {
   
   internal var interactor: LaunchDetailUseCase?
   internal weak var view: LaunchDetailViewProtocol?
-  internal weak var router: LaunchDetailRouter?
+  internal var router: LaunchDetailRouterProtocol?
   internal var launchModel: LaunchModel?
   internal var isInWatchlist: Bool?
   internal var bags = DisposeBag()
@@ -76,13 +77,18 @@ extension LaunchDetailPresenter: LaunchDetailPresenterProtocol {
         print("error: \(Error)")
       } onCompleted: {
         if let isInWatchlist = self.isInWatchlist {
-          print("LaunchDetailPresenter toggleWatchlist \(self.isInWatchlist)")
           DispatchQueue.main.async {
             self.view?.updateToggleWatchlist(isInWatchlist: isInWatchlist)
           }
         }
       }
       .disposed(by: bags)
+  }
+  
+  func showInfographicImage(for image: UIImage) {
+    guard let router = router else { return }
+    print("showInfographicImage")
+    router.showInfographicImage(for: image)
   }
   
 }

@@ -20,11 +20,11 @@ final class LaunchDetailAssembly {
     
     presenter.view = view
     presenter.interactor = interactor
-//    presenter.router = router
+    presenter.router = router
     
     interactor.presenter = presenter
     
-//    router.presenter = presenter
+    router.presenter = presenter
     router.viewController = view
     
     return view
