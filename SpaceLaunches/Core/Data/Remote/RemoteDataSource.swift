@@ -28,7 +28,6 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
   func getUpcomingGoLaunches() -> Observable<[Launch]> {
     return Observable<[Launch]>.create { observer in
       if let url = URL(string: Endpoints.Gets.upcomingGo.url) {
-        print(url.description)
         AF.request(url)
           .validate()
           .responseDecodable(of: LaunchesResult.self) { response in
@@ -48,7 +47,6 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
   func getPreviousLaunches() -> Observable<[Launch]> {
     return Observable<[Launch]>.create { observer in
       if let url = URL(string: Endpoints.Gets.previous.url) {
-        print(url.description)
         AF.request(url)
           .validate()
           .responseDecodable(of: LaunchesResult.self) { response in

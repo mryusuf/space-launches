@@ -61,8 +61,9 @@ extension LaunchDetailView {
     
     let addToWatchlistButton = UIButton(frame: CGRect.init(x: 0, y: 0, width: 44, height: 44))
     addToWatchlistButton.setImage(
-      UIImage(systemName: isInWatchlist ? "binoculars.fill" : "binoculars"),
+      UIImage(named: "watchlist-\(isInWatchlist)"),
       for: .normal)
+    addToWatchlistButton.imageView?.contentMode = .scaleAspectFit
     addToWatchlistButton.addTarget(self, action: #selector(toggleWatchlist), for: .touchUpInside)
     
     self.addToWatchlistButton = addToWatchlistButton
@@ -114,9 +115,8 @@ extension LaunchDetailView: LaunchDetailViewProtocol {
   }
   
   func updateToggleWatchlist(isInWatchlist: Bool) {
-    print("LaunchDetailView updateToggleWatchlist \(isInWatchlist)")
     self.addToWatchlistButton?.setImage(
-      UIImage(systemName: isInWatchlist ? "binoculars.fill" : "binoculars"),
+      UIImage(named: "watchlist-\(isInWatchlist)"),
       for: .normal)
   }
   
@@ -124,7 +124,6 @@ extension LaunchDetailView: LaunchDetailViewProtocol {
     guard let presenter = presenter,
           let image: UIImage = self.launchImageView?.image
     else { return }
-    print("imageViewTapped")
     presenter.showInfographicImage(for: image)
   }
   

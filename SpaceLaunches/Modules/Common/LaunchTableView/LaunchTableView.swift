@@ -52,7 +52,6 @@ extension LaunchTableView {
     let tableView = UITableView(frame: .zero, style: .grouped)
     tableView.backgroundColor = .clear
     tableView.tableFooterView = UIView()
-    tableView.showsVerticalScrollIndicator = false
     tableView.rx.setDelegate(self).disposed(by: bags)
     tableView.register(UINib(nibName: cellName, bundle: nil), forCellReuseIdentifier: cellName)
     addSubview(tableView)
@@ -104,16 +103,6 @@ extension LaunchTableView {
     self.launchesTableView?.isScrollEnabled = isEnabled
   }
   
-  func setTableViewHeight() -> CGFloat {
-    guard let launchesTableView = launchesTableView else { return 0 }
-    print("setTableViewHeight \(launchesTableView.contentSize.height)")
-    launchesTableView.frame = CGRect(
-      x: launchesTableView.frame.origin.x,
-      y: launchesTableView.frame.origin.y,
-      width: launchesTableView.frame.size.width,
-      height: launchesTableView.contentSize.height)
-    return launchesTableView.contentSize.height
-  }
 }
 
 extension LaunchTableView: UITableViewDelegate {

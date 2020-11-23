@@ -115,8 +115,10 @@
             <connections>
                 <outlet property="agencyLabel" destination="l0P-hd-VVt" id="bUq-29-0mp"/>
                 <outlet property="countdownLabel" destination="NrM-aY-jYN" id="S0L-3c-beE"/>
+                <outlet property="countdownLegendLabel" destination="yKu-0k-hXt" id="icG-D6-2oe"/>
                 <outlet property="imageView" destination="WKM-nr-1wf" id="K2V-we-gVe"/>
                 <outlet property="launchDateLabel" destination="75r-pK-1Rc" id="GFi-fY-Q0O"/>
+                <outlet property="tLabel" destination="Kee-l4-D4v" id="YWS-ee-ZN0"/>
                 <outlet property="titleLabel" destination="AqK-vh-Na3" id="xry-js-vVe"/>
             </connections>
             <point key="canvasLocation" x="267.39130434782612" y="217.63392857142856"/>

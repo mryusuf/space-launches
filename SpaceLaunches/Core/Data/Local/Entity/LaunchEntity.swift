@@ -80,7 +80,7 @@ class PadEntity: Object {
   @objc dynamic var id: Int = 0
   @objc dynamic var name: String = ""
   @objc dynamic var wiki_url: String = ""
-  var location: PadLocationEntity?
+  @objc dynamic var location: PadLocationEntity?
   override class func primaryKey() -> String? {
     return "id"
   }

@@ -113,7 +113,6 @@ extension LocalDataSource: LocalDataSourceProtocol {
           try realm.write {
             if let launch = realm.object(ofType: LaunchEntity.self, forPrimaryKey: id) {
               launch.isInWatchlist.toggle()
-              print("LocalDataSource toggleWatchlist \(launch.isInWatchlist)")
               observer.onNext(launch.isInWatchlist)
               observer.onCompleted()
             } else {

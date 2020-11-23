@@ -60,20 +60,6 @@ class LaunchesView: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .systemBackground
-    DispatchQueue.main.async {
-      if let previousLabel = self.previousLabel,
-         let containerView = self.containerView {
-        
-        let height = self.previousLaunchesTableView?.setTableViewHeight() ?? 0
-        self.previousLaunchesTableView?.snp.makeConstraints { make in
-          make.left.equalTo(self.view)
-          make.right.equalTo(self.view)
-          make.top.equalTo(previousLabel.safeAreaLayoutGuide.snp.bottomMargin).offset(20)
-          make.height.greaterThanOrEqualTo(height)
-          make.bottom.equalTo(containerView.snp.bottom).offset(0)
-        }
-      }
-    }
   }
   
 }
@@ -179,12 +165,20 @@ extension LaunchesView {
     
     setupPreviousLaunchesLabel()
     
-    guard let containerView = containerView else { return }
+    guard let containerView = containerView, let previousLabel = previousLabel else { return }
     
     let previousLaunchesView = LaunchTableView()
     previousLaunchesView.setup()
     previousLaunchesView.delegate = self
     containerView.addSubview(previousLaunchesView)
+    
+    previousLaunchesView.snp.makeConstraints { make in
+      make.left.equalTo(self.view)
+      make.right.equalTo(self.view)
+      make.top.equalTo(previousLabel.safeAreaLayoutGuide.snp.bottomMargin).offset(20)
+      make.height.greaterThanOrEqualTo(self.view.bounds.height)
+      make.bottom.equalTo(containerView.snp.bottom).offset(0)
+    }
     
     self.previousLaunchesTableView = previousLaunchesView
     

@@ -25,7 +25,7 @@ extension LaunchesRouter: LaunchesRouterProtocol {
   
   func showLaunchDetail(with launch: LaunchModel) {
     let launchDetailVC = LaunchDetailAssembly().build(launch)
-//    launchDetailVC.modalPresentationStyle = .fullScreen
+    launchDetailVC.hidesBottomBarWhenPushed = true
     self.viewController?.navigationController?.pushViewController(launchDetailVC, animated: true)
   }
   

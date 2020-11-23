@@ -39,10 +39,6 @@ extension LaunchDetailPresenter: LaunchDetailPresenterProtocol {
     
     self.launchModel = launch
     let launchDetails = LaunchMapper.mapLaunchModelToDetail(input: launch)
-    
-//    let launchInfographicDetails = launchDetails.filter { $0.label == "infographic" }
-//    let launchDescDetails = launchDetails.filter { $0.label != "infographic" }
-    
     let splitLaunchDetails = launchDetails.reduce(([LaunchDetail](), [LaunchDetail]()) ) { (value, object) -> ([LaunchDetail], [LaunchDetail]) in
       var value = value
       if object.label == "Infographic" {
@@ -52,8 +48,6 @@ extension LaunchDetailPresenter: LaunchDetailPresenterProtocol {
       }
       return value
     }
-    
-//    print("split launchDetails \(splitLaunchDetails)")
     
     // Map LaunchModel into LaunchDetail
     self.view?.displayLaunch(name: launch.name, image: launch.image, desc: splitLaunchDetails.0, infographic: splitLaunchDetails.1)
@@ -87,7 +81,6 @@ extension LaunchDetailPresenter: LaunchDetailPresenterProtocol {
   
   func showInfographicImage(for image: UIImage) {
     guard let router = router else { return }
-    print("showInfographicImage")
     router.showInfographicImage(for: image)
   }
   

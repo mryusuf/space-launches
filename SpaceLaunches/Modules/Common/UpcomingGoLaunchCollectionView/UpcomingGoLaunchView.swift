@@ -54,6 +54,7 @@ extension UpcomingGoLaunchView {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     collectionView.backgroundColor = .clear
     collectionView.isPagingEnabled = true
+    collectionView.showsHorizontalScrollIndicator = false
     collectionView.rx.setDelegate(self).disposed(by: bags)
     collectionView.register(UINib(nibName: "UpcomingGoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellName)
     addSubview(collectionView)
@@ -95,7 +96,6 @@ extension UpcomingGoLaunchView {
   func displayUpcomingGoLaunches(_ launches: [LaunchModel]) {
     
     guard !isLoading, let launchesSubject = launchesSubject else { return }
-//    print("UpcomingGoCollectionView displayUpcomingGoLaunches")
     isLoading = true
     self.launches = launches
     launchesSubject.onNext(loadLaunchSection())

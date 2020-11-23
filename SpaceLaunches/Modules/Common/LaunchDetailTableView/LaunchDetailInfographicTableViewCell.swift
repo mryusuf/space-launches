@@ -26,7 +26,10 @@ class LaunchDetailInfographicTableViewCell: UITableViewCell {
   func set(_ launchDetail: LaunchDetail, presenter: LaunchDetailPresenterProtocol) {
     self.presenter = presenter
     infographicImageView.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
-    infographicImageView.sd_setImage(with: URL(string: launchDetail.detail)) {_, _, _, _ in 
+    infographicImageView.sd_setImage(with: URL(string: launchDetail.detail)) {_, _, _, _ in
+      self.infographicImageView.snp.makeConstraints { make in
+        make.top.bottom.right.left.equalToSuperview()
+      }
       self.infographicImageView.isUserInteractionEnabled = true
       self.infographicImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.onInfographicTapped)))
     }

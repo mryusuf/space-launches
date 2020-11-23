@@ -40,7 +40,6 @@ class LaunchDetailTableView: UIView {
                         items: launchInfographicDetails))
     }
     self.launchSections = sections
-//    print("PreviousLaunchView loadLaunchSection \(sections[0].items)")
     return sections
   }
   
@@ -141,4 +140,11 @@ extension LaunchDetailTableView {
 
 extension LaunchDetailTableView: UITableViewDelegate {
   
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if let header = launchDetailDataSource?[indexPath].label, header == "Infographic" {
+      return CGFloat(300)
+    } else {
+      return UITableView.automaticDimension
+    }
+  }
 }

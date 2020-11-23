@@ -16,7 +16,10 @@ class UpcomingGoLaunchCollectionViewCell: UICollectionViewCell {
   @IBOutlet weak var launchDateLabel: UILabel!
   @IBOutlet weak var agencyLabel: UILabel!
   @IBOutlet weak var countdownLabel: UILabel!
+  @IBOutlet weak var tLabel: UILabel!
+  @IBOutlet weak var countdownLegendLabel: UILabel!
   private var net: Date?
+  let calendar = Calendar.current
   private var bags = DisposeBag()
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -37,18 +40,28 @@ class UpcomingGoLaunchCollectionViewCell: UICollectionViewCell {
       self.net = net
       Observable<Int>
         .interval(.seconds(1), scheduler: MainScheduler.instance)
-        .subscribe(onNext: {_ in
-          
-          self.countdownLabel.text = self.setCountDownString()
+        .subscribe(onNext: { _ in
+          if self.checkIfNetIsNow() {
+            self.countdownLabel.text = "Launch !"
+            self.tLabel.isHidden = true
+            self.countdownLegendLabel.isHidden = true
+          } else {
+            self.countdownLabel.text = self.setCountDownString()
+          }
         })
         .disposed(by: bags)
     
     }
   }
   
+  func checkIfNetIsNow() -> Bool {
+    guard let net = net else { return false}
+    let diff = calendar.compare(Date(), to: net, toGranularity: .second)
+    return diff == .orderedSame
+  }
+  
   func setCountDownString() -> String {
     guard let net = net else { return "" }
-    let calendar = Calendar.current
     
     let countdownDate = calendar.dateComponents(
       [.day, .hour, .minute, .second],

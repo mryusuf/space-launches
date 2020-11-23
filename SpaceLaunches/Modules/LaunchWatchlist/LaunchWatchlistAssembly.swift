@@ -10,7 +10,7 @@ import UIKit
 final class LaunchWatchlistAssembly {
   
   func build() -> UIViewController {
-    print("LaunchWatchlistAssembly build")
+    
     let repo = Injection.init().provideRepository()
     let view = LaunchWatchlistView()
     let interactor = LaunchWatchlistInteractor(repo: repo)
@@ -29,6 +29,7 @@ final class LaunchWatchlistAssembly {
     router.viewController = view
     
     return view
+    
   }
   
 }

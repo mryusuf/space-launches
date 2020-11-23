@@ -71,72 +71,10 @@ final class LaunchMapper {
     }
   }
   
-//  static func mapLaunchDomainToEntity(
-//    input model: [LaunchModel]
-//  ) -> [LaunchEntity] {
-//    return model.map { launch in
-//      
-//      let status = StatusEntity()
-//      status.id = launch.status.id
-//      status.name = launch.status.name
-//      
-//      let mission = MissionEntity()
-//      mission.id = launch.mission?.id ?? 0
-//      mission.name = launch.mission?.name ?? ""
-//      mission.desc = launch.mission?.description ?? ""
-//      mission.type = launch.mission?.type ?? ""
-//      
-//      let pad = PadEntity()
-//      pad.id = launch.pad.id
-//      pad.name = launch.pad.name
-//      pad.wiki_url = launch.pad.wiki_url
-//      let padLocation = PadLocationEntity()
-//      padLocation.name = launch.pad.location.name
-//      padLocation.country_code = launch.pad.location.country_code
-//      pad.location = padLocation
-//      
-//      let rocket = RocketEntity()
-//      rocket.id = launch.rocket.id
-//      let rocketConfiguration = RocketConfigurationEntity()
-//      rocketConfiguration.id = launch.rocket.configuration.id
-//      rocketConfiguration.name = launch.rocket.configuration.name
-//      rocketConfiguration.url = launch.rocket.configuration.url
-//      rocket.configuration = rocketConfiguration
-//      
-//      let agency = AgencyEntity()
-//      agency.id = launch.agency.id
-//      agency.url = launch.agency.url
-//      agency.name = launch.agency.name
-//      agency.type = launch.agency.type
-//      
-//      let launchEntity = LaunchEntity()
-//      launchEntity.id = launch.id
-//      launchEntity.url = launch.url
-//      launchEntity.name = launch.name
-//      launchEntity.net = launch.net.toDate()
-//      launchEntity.status = status
-//      launchEntity.tbdtime = launch.tbdtime
-//      launchEntity.tbddate = launch.tbddate
-//      launchEntity.holdreason = launch.holdreason
-//      launchEntity.failreason = launch.failreason
-//      launchEntity.image = launch.image
-//      launchEntity.infographic = launch.infographic
-//      launchEntity.agency = agency
-//      launchEntity.rocket = rocket
-//      launchEntity.mission = mission
-//      launchEntity.pad = pad
-//      launchEntity.isInWatchlist = launch.isInWatchlist
-//      
-//      return launchEntity
-//    }
-//  }
-  
   static func mapLaunchResponsesToEntity(
     input response: [Launch], type: Int
   ) -> [LaunchEntity] {
     return response.map { launch in
-      
-      print("launch net \(String(describing: launch.mission))")
       
       let status = StatusEntity()
       status.id = launch.status.id
@@ -214,8 +152,15 @@ final class LaunchMapper {
       launchDetails.append(missionDetail)
     }
     
+    let padName = launch.pad.name
+    let padLocation = launch.pad.location.name
+    if  !padName.isEmpty, !padLocation.isEmpty {
+      let padDetailString = "\(padName), \(padLocation)"
+      let padDetail = LaunchDetail(label: "Location", detail: padDetailString)
+      launchDetails.append(padDetail)
+    }
+    
     if !launch.infographic.isEmpty {
-      print("launch infographic \(launch.infographic)")
       let infographicDetail = LaunchDetail(label: "Infographic", detail: launch.infographic)
       launchDetails.append(infographicDetail)
     }

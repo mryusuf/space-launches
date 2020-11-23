@@ -32,8 +32,6 @@ extension LaunchDetailRouter: LaunchDetailRouterProtocol {
     lightBoxController.dismissalDelegate = self.viewController as? LightboxControllerDismissalDelegate
     lightBoxController.dynamicBackground = true
     
-    print("LaunchDetailRouter showInfographicImage")
-    
     self.viewController?.present(lightBoxController, animated: true, completion: nil)
   }
 }

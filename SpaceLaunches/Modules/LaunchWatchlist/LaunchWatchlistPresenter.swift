@@ -43,6 +43,7 @@ extension LaunchWatchlistPresenter: LaunchWatchlistPresenterProtocol {
         if self.launches.isEmpty {
           self.view?.showEmptyState()
         } else {
+          self.view?.hideEmptyState()
           self.view?.displayLaunches(self.launches)
         }
       }
