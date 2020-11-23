@@ -72,8 +72,15 @@ extension LaunchDetailPresenter: LaunchDetailPresenterProtocol {
       } onCompleted: {
         if let isInWatchlist = self.isInWatchlist {
           DispatchQueue.main.async {
+            if isInWatchlist {
+              self.router?.showAlert(title: "Success", message: "Added to Watchlist")
+            } else {
+              self.router?.showAlert(title: "Success", message: "Removed from Watchlist")
+            }
             self.view?.updateToggleWatchlist(isInWatchlist: isInWatchlist)
           }
+        } else {
+          self.router?.showAlert(title: "Error", message: "Sorry, there's an error")
         }
       }
       .disposed(by: bags)

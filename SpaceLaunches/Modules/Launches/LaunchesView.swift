@@ -51,14 +51,14 @@ class LaunchesView: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
-    self.navigationController?.navigationBar.prefersLargeTitles = true
-    self.navigationItem.largeTitleDisplayMode = .automatic
     self.presenter?.loadLaunches()
     
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.navigationController?.navigationBar.prefersLargeTitles = false
+    self.navigationController?.navigationItem.largeTitleDisplayMode = .always
     self.view.backgroundColor = .systemBackground
   }
   
@@ -191,12 +191,15 @@ extension LaunchesView: UIScrollViewDelegate {
     let yOffset = scrollView.contentOffset.y
     
     if scrollView == self.scrollView {
+      print("tableview scroll")
       if yOffset >= scrollView.bounds.height - view.bounds.height {
+        print("tableview scroll")
         scrollView.isScrollEnabled = false
         previousLaunchesTableView?.setTableViewScroll(true)
       }
     } else {
       if yOffset <= 0 {
+        print("scrollview scroll")
         self.scrollView?.isScrollEnabled = true
         previousLaunchesTableView?.setTableViewScroll(false)
       }

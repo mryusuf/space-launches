@@ -29,10 +29,9 @@ extension HomeRouter: HomeRouterProtocol {
     launchVC.tabBarItem = UITabBarItem(title: "Launches", image: UIImage(named: "launches-true"), tag: 0)
     
     let watchlistVC = LaunchWatchlistAssembly().build()
-    watchlistVC.tabBarItem = UITabBarItem(title: "Watchlist", image: UIImage(named: "watchlist-true"), tag: 0)
+    watchlistVC.tabBarItem = UITabBarItem(title: "Watchlist", image: UIImage(named: "watchlist-true"), tag: 1)
     
     let launchNC = UINavigationController(rootViewController: launchVC)
-    launchNC.navigationBar.prefersLargeTitles = true
     
     let watchlistNC = UINavigationController(rootViewController: watchlistVC)
     return [

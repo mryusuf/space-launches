@@ -12,6 +12,7 @@ protocol LaunchDetailRouterProtocol: class {
   
   var presenter: LaunchDetailPresenterProtocol? { get set }
   func showInfographicImage(for image: UIImage)
+  func showAlert(title: String, message: String)
   
 }
 
@@ -33,5 +34,13 @@ extension LaunchDetailRouter: LaunchDetailRouterProtocol {
     lightBoxController.dynamicBackground = true
     
     self.viewController?.present(lightBoxController, animated: true, completion: nil)
+  }
+  
+  func showAlert(title: String, message: String) {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+
+    self.viewController?.present(alert, animated: true)
   }
 }
