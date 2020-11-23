@@ -14,6 +14,7 @@ protocol SpaceRepositoryProtocol {
   func getPreviousLaunches() -> Observable<[LaunchModel]>
   func getWatchlistedLaunches() -> Observable<[LaunchModel]>
   func toggleWatchlist(_ id: String) -> Observable<Bool>
+  func getAboutData() -> Observable<AboutModel>
   
 }
 
@@ -73,6 +74,10 @@ extension SpaceRepository: SpaceRepositoryProtocol {
   
   func toggleWatchlist(_ id: String) -> Observable<Bool> {
     return self.local.toggleWatchlist(id)
+  }
+  
+  func getAboutData() -> Observable<AboutModel> {
+    return self.local.getAboutData()
   }
   
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		822DA543256B696300923640 /* AboutInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822DA542256B696300923640 /* AboutInteractor.swift */; };
+		822DA547256B69C500923640 /* AboutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822DA546256B69C500923640 /* AboutModel.swift */; };
 		823173D125598287005043E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823173D025598287005043E8 /* AppDelegate.swift */; };
 		823173D325598287005043E8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823173D225598287005043E8 /* SceneDelegate.swift */; };
 		823173DA25598289005043E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 823173D925598289005043E8 /* Assets.xcassets */; };
@@ -43,6 +45,10 @@
 		827299D72562678A0023BB87 /* UpcomingGoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 827299D52562678A0023BB87 /* UpcomingGoCollectionViewCell.xib */; };
 		82729A0C2562BEDD0023BB87 /* UpcomingGoLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82729A0B2562BEDD0023BB87 /* UpcomingGoLaunchView.swift */; };
 		82729A1D256376CF0023BB87 /* LaunchSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82729A1C256376CF0023BB87 /* LaunchSection.swift */; };
+		828BB607256B6ADC00DCA174 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828BB606256B6ADC00DCA174 /* AboutView.swift */; };
+		828BB60B256B6AF100DCA174 /* AboutPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828BB60A256B6AF100DCA174 /* AboutPresenter.swift */; };
+		828BB60E256B6B0900DCA174 /* AboutRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828BB60D256B6B0900DCA174 /* AboutRouter.swift */; };
+		828BB612256B6B1C00DCA174 /* AboutAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828BB611256B6B1C00DCA174 /* AboutAssembly.swift */; };
 		82A24F2E2561511A00322D1D /* HomeAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A24F2D2561511A00322D1D /* HomeAssembly.swift */; };
 		82A24F312561525C00322D1D /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A24F302561525C00322D1D /* HomeRouter.swift */; };
 		82A24F342561585900322D1D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A24F332561585900322D1D /* HomeView.swift */; };
@@ -62,6 +68,8 @@
 
 /* Begin PBXFileReference section */
 		4DC95C2CF9E5474DB4BAA41E /* Pods-SpaceLaunches.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpaceLaunches.release.xcconfig"; path = "Target Support Files/Pods-SpaceLaunches/Pods-SpaceLaunches.release.xcconfig"; sourceTree = "<group>"; };
+		822DA542256B696300923640 /* AboutInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInteractor.swift; sourceTree = "<group>"; };
+		822DA546256B69C500923640 /* AboutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutModel.swift; sourceTree = "<group>"; };
 		823173CD25598287005043E8 /* SpaceLaunches.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceLaunches.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		823173D025598287005043E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		823173D225598287005043E8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +108,10 @@
 		827299D52562678A0023BB87 /* UpcomingGoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingGoCollectionViewCell.xib; sourceTree = "<group>"; };
 		82729A0B2562BEDD0023BB87 /* UpcomingGoLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingGoLaunchView.swift; sourceTree = "<group>"; };
 		82729A1C256376CF0023BB87 /* LaunchSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSection.swift; sourceTree = "<group>"; };
+		828BB606256B6ADC00DCA174 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		828BB60A256B6AF100DCA174 /* AboutPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPresenter.swift; sourceTree = "<group>"; };
+		828BB60D256B6B0900DCA174 /* AboutRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutRouter.swift; sourceTree = "<group>"; };
+		828BB611256B6B1C00DCA174 /* AboutAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAssembly.swift; sourceTree = "<group>"; };
 		82A24F2D2561511A00322D1D /* HomeAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAssembly.swift; sourceTree = "<group>"; };
 		82A24F302561525C00322D1D /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		82A24F332561585900322D1D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -149,6 +161,17 @@
 				4DC95C2CF9E5474DB4BAA41E /* Pods-SpaceLaunches.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		822DA53D256B664900923640 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				828BB606256B6ADC00DCA174 /* AboutView.swift */,
+				828BB60A256B6AF100DCA174 /* AboutPresenter.swift */,
+				828BB60D256B6B0900DCA174 /* AboutRouter.swift */,
+				828BB611256B6B1C00DCA174 /* AboutAssembly.swift */,
+			);
+			path = About;
 			sourceTree = "<group>";
 		};
 		823173C425598287005043E8 = {
@@ -252,6 +275,7 @@
 		823173EF25598501005043E8 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				822DA53D256B664900923640 /* About */,
 				827299CE2562670D0023BB87 /* Common */,
 				82EEE3422560332F00D51DB6 /* Home */,
 				82A24F472561606C00322D1D /* LaunchDetail */,
@@ -335,6 +359,7 @@
 				82729A1C256376CF0023BB87 /* LaunchSection.swift */,
 				82390ED5256655D0009A24A9 /* LaunchDetailSection.swift */,
 				82390ED82566564B009A24A9 /* LaunchDetail.swift */,
+				822DA546256B69C500923640 /* AboutModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -346,6 +371,7 @@
 				82A24F5C25617BA500322D1D /* LaunchesInteractor.swift */,
 				8233E86E2565515600B71D52 /* LaunchDetailInteractor.swift */,
 				823B78592567A8BB000B74C5 /* LaunchWatchlistInteractor.swift */,
+				822DA542256B696300923640 /* AboutInteractor.swift */,
 			);
 			path = "Use Case";
 			sourceTree = "<group>";
@@ -561,11 +587,14 @@
 				82A24F50256160AD00322D1D /* LaunchDetailView.swift in Sources */,
 				82A24F5D25617BA500322D1D /* LaunchesInteractor.swift in Sources */,
 				82A24F6025617C6200322D1D /* Injection.swift in Sources */,
+				828BB612256B6B1C00DCA174 /* AboutAssembly.swift in Sources */,
+				822DA543256B696300923640 /* AboutInteractor.swift in Sources */,
 				8242F2AD255A4CCC00628DA2 /* SpaceRepository.swift in Sources */,
 				823A4EEC255EEA16008F293B /* LocalDataSource.swift in Sources */,
 				82729A0C2562BEDD0023BB87 /* UpcomingGoLaunchView.swift in Sources */,
 				823B785E2567A954000B74C5 /* LaunchWatchlistPresenter.swift in Sources */,
 				82A24F53256160ED00322D1D /* LaunchesAssembly.swift in Sources */,
+				822DA547256B69C500923640 /* AboutModel.swift in Sources */,
 				82A24F3E2561605500322D1D /* LaunchesPresenter.swift in Sources */,
 				823A4EE8255EE6FE008F293B /* LaunchEntity.swift in Sources */,
 				823B78622567A971000B74C5 /* LaunchWatchlistView.swift in Sources */,
@@ -573,15 +602,18 @@
 				82390EDD25665AED009A24A9 /* LaunchDetailDescTableViewCell.swift in Sources */,
 				82A24F2E2561511A00322D1D /* HomeAssembly.swift in Sources */,
 				8233E8522564F52E00B71D52 /* LaunchTableViewCell.swift in Sources */,
+				828BB607256B6ADC00DCA174 /* AboutView.swift in Sources */,
 				8242F2A7255A433500628DA2 /* API.swift in Sources */,
 				82390EE225665CB6009A24A9 /* LaunchDetailInfographicTableViewCell.swift in Sources */,
 				8242F2B8255A64DA00628DA2 /* Date+Ext.swift in Sources */,
+				828BB60E256B6B0900DCA174 /* AboutRouter.swift in Sources */,
 				82390ED6256655D0009A24A9 /* LaunchDetailSection.swift in Sources */,
 				82EEE3462560348100D51DB6 /* HomePresenter.swift in Sources */,
 				82A24F342561585900322D1D /* HomeView.swift in Sources */,
 				827299D62562678A0023BB87 /* UpcomingGoLaunchCollectionViewCell.swift in Sources */,
 				82A24F422561605E00322D1D /* LaunchesRouter.swift in Sources */,
 				823B785A2567A8BB000B74C5 /* LaunchWatchlistInteractor.swift in Sources */,
+				828BB60B256B6AF100DCA174 /* AboutPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

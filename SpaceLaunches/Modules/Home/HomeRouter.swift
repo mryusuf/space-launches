@@ -31,12 +31,17 @@ extension HomeRouter: HomeRouterProtocol {
     let watchlistVC = LaunchWatchlistAssembly().build()
     watchlistVC.tabBarItem = UITabBarItem(title: "Watchlist", image: UIImage(named: "watchlist-true"), tag: 1)
     
-    let launchNC = UINavigationController(rootViewController: launchVC)
+    let aboutVC = AboutAssembly().build()
+    aboutVC.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 2)
     
+    let launchNC = UINavigationController(rootViewController: launchVC)
     let watchlistNC = UINavigationController(rootViewController: watchlistVC)
+    let aboutNC = UINavigationController(rootViewController: aboutVC)
+    
     return [
       launchNC,
-      watchlistNC
+      watchlistNC,
+      aboutNC
     ]
   }
   

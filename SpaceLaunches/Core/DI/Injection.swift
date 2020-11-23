@@ -19,4 +19,11 @@ final class Injection: NSObject {
     return SpaceRepository.shared(remote, local)
   }
   
+  func prodideAboutData() -> AboutModel {
+    return AboutModel(
+      name: "Muhamad Yusuf Indra P. P.",
+      email: "muhamadyusufindra@gmail.com",
+      imageName: "yusuf.png")
+  }
+  
 }

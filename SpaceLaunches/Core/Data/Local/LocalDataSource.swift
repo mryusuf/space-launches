@@ -16,6 +16,7 @@ protocol LocalDataSourceProtocol {
   func addLaunches(from launches: [LaunchEntity]) -> Observable<Bool>
   func getWatchlistedLaunches() -> Observable<[LaunchEntity]>
   func toggleWatchlist(_ id: String) -> Observable<Bool>
+  func getAboutData() -> Observable<AboutModel>
 }
 
 final class LocalDataSource: NSObject {
@@ -125,6 +126,15 @@ extension LocalDataSource: LocalDataSourceProtocol {
       } else {
         observer.onError(DatabaseError.invalidInstance)
       }
+      return Disposables.create()
+    }
+  }
+  
+  func getAboutData() -> Observable<AboutModel> {
+    return Observable<AboutModel>.create { observer in
+      let about = Injection.init().prodideAboutData()
+      observer.onNext(about)
+      observer.onCompleted()
       return Disposables.create()
     }
   }
